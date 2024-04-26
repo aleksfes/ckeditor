@@ -535,8 +535,8 @@
 			}
 
 			// Plays the magic here to restore/save dom selection on editable focus/blur.
-			editable.attachListener( editable, CKEDITOR.env.webkit ? 'DOMFocusIn' : 'focus', function() {
-				// On Webkit we use DOMFocusIn which is fired more often than focus - e.g. when moving from main editable
+			editable.attachListener( editable, CKEDITOR.env.webkit ? 'focusin' : 'focus', function() {
+				// On Webkit we use 'focusin' which is fired more often than focus - e.g. when moving from main editable
 				// to nested editable (or the opposite). Unlock selection all, but restore only when it was locked
 				// for the same active element, what will e.g. mean restoring after displaying dialog.
 				if ( restoreSel && CKEDITOR.env.webkit )
@@ -569,9 +569,9 @@
 					editable.attachListener( editor, 'selectionCheck', saveSel, null, null, -1 );
 
 				// Lock the selection and mark it to be restored.
-				// On Webkit we use DOMFocusOut which is fired more often than blur. I.e. it will also be
+				// On Webkit we use 'focusout' which is fired more often than blur. I.e. it will also be
 				// fired when nested editable is blurred.
-				editable.attachListener( editable, CKEDITOR.env.webkit ? 'DOMFocusOut' : 'blur', function() {
+				editable.attachListener( editable, CKEDITOR.env.webkit ? 'focusout' : 'blur', function() {
 					editor.lockSelection( lastSel );
 					restoreSel = 1;
 				}, null, null, -1 );
